@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Walmart Mobile Support Redesign | A/B Usability Testing Prototype</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <meta name="description" content="Clickable mobile A/B usability-testing prototype comparing Order-First Support vs Support-First journeys for Walmart Canada.">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       RESEARCHER / FACILITATOR TOP TOOLBAR (OUTSIDE PHONE VIEWPORT)
+       ========================================================================== -->
+  <header class="researcher-bar" role="banner" id="researcherToolbar">
+    <div class="researcher-info">
+      <span class="researcher-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFC220"><path d="M12 2l2.4 7.4h7.6l-6.1 4.5 2.3 7.1-6.2-4.5-6.2 4.5 2.3-7.1-6.1-4.5h7.6z"/></svg>
+        Walmart Mobile UX Study
+      </span>
+      <span class="researcher-badge" id="activeFlowLabel">Flow Selection</span>
+    </div>
+
+    <div class="researcher-controls">
+      <div class="flow-selector-group">
+        <button type="button" class="flow-btn active" id="btnFlowA" title="Switch to Order-First Flow">Flow A (Order-First)</button>
+        <button type="button" class="flow-btn" id="btnFlowB" title="Switch to Support-First Flow">Flow B (Support-First)</button>
+      </div>
+
+      <button type="button" class="toolbar-btn" id="btnResetFlow" title="Reset task to Home screen">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        Reset Flow
+      </button>
+
+      <button type="button" class="toolbar-btn" id="btnToggleDevice" title="Toggle between Phone frame and Responsive view">
+        🖥️ Responsive View
+      </button>
+
+      <button type="button" class="toolbar-btn" id="btnViewScenario" title="Read task scenario briefing">
+        📋 Task Scenario
+      </button>
+
+      <button type="button" class="toolbar-btn" id="btnExitToHub" title="Return to prototype selection landing screen">
+        🏠 Hub
+      </button>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       PROTOTYPE WORKSPACE
+       ========================================================================== -->
+  <main class="prototype-workspace">
+
+    <!-- ------------------------------------------------------------------------
+         1. LANDING SCREEN (OUTSIDE PHONE) - FOR SELECTING TEST FLOW
+         ------------------------------------------------------------------------ -->
+    <section id="landingScreen" aria-label="Usability Prototype Launch Hub">
+      <div class="landing-card">
+        <div class="landing-header">
+          <div class="landing-spark-icon">
+            <svg viewBox="0 0 64 64" fill="none">
+              <!-- Walmart Spark 6-ray star -->
+              <rect x="28" y="2" width="8" height="19" rx="4" fill="#FFC220"/>
+              <rect x="28" y="43" width="8" height="19" rx="4" fill="#FFC220"/>
+              <rect x="44.5" y="11.5" width="8" height="19" rx="4" transform="rotate(60 48.5 21)" fill="#FFC220"/>
+              <rect x="11.5" y="32.5" width="8" height="19" rx="4" transform="rotate(60 15.5 42)" fill="#FFC220"/>
+              <rect x="44.5" y="33.5" width="8" height="19" rx="4" transform="rotate(120 48.5 43)" fill="#FFC220"/>
+              <rect x="11.5" y="12.5" width="8" height="19" rx="4" transform="rotate(120 15.5 22)" fill="#FFC220"/>
+            </svg>
+          </div>
+          <h1 class="landing-title">Walmart Canada Mobile Support A/B Study</h1>
+          <p class="landing-subtitle">
+            Evaluating user journeys for connecting with a live customer care agent following a damaged item delivery.
+            Course: <strong>MMDD 231 – Contemporary Web Design 2</strong> &bull; Student: <strong>Maryam Nazargol</strong>
+          </p>
+        </div>
+
+        <!-- Task Scenario Box -->
+        <div class="task-prompt-box">
+          <div class="task-prompt-badge">Testing Scenario</div>
+          <p class="task-prompt-quote">
+            “You received a damaged item from a recent Walmart order. Starting from the signed-in Walmart home screen, find a way to get help and join the queue for a live customer-service agent.”
+          </p>
+          <p class="task-prompt-sub">
+            * Note: This instruction is not displayed inside the Walmart mobile UI so test participants discover their route naturally.
+          </p>
+        </div>
+
+        <!-- Flow Selection Cards -->
+        <div class="flow-selection-grid">
+          
+          <!-- FLOW A CARD -->
+          <div class="flow-choice-card" id="choiceCardA" tabindex="0" role="button" aria-label="Launch Flow A Order-First">
+            <span class="flow-card-badge badge-a">Version A &bull; Experimental Flow</span>
+            <h2 class="flow-card-title">Order-First Support</h2>
+            <p class="flow-card-desc">
+              The customer locates the delivered order in Purchase History, requests support directly within the order details, and flows into the queue with order context automatically attached.
+            </p>
+            <div class="flow-steps-pill-list">
+              <div class="flow-step-item"><span class="flow-step-num">1</span> Shared Home Screen (Signed In)</div>
+              <div class="flow-step-item"><span class="flow-step-num">2</span> Account Navigation &rarr; Orders</div>
+              <div class="flow-step-item"><span class="flow-step-num">3</span> Purchase History &rarr; Select Crib Order</div>
+              <div class="flow-step-item"><span class="flow-step-num">4</span> Order Details &rarr; "Get help with this item"</div>
+              <div class="flow-step-item"><span class="flow-step-num">5</span> Choose Issue &rarr; "Damaged item"</div>
+              <div class="flow-step-item"><span class="flow-step-num">6</span> Support Handoff &rarr; Chat with us</div>
+              <div class="flow-step-item"><span class="flow-step-num">7</span> Joined Queue (Context attached)</div>
+            </div>
+            <button type="button" class="flow-launch-btn" id="btnLaunchFlowA">
+              Launch Flow A (Order-First) &rarr;
+            </button>
+          </div>
+
+          <!-- FLOW B CARD -->
+          <div class="flow-choice-card" id="choiceCardB" tabindex="0" role="button" aria-label="Launch Flow B Support-First">
+            <span class="flow-card-badge badge-b">Version B &bull; Baseline Flow</span>
+            <h2 class="flow-card-title">Support-First Flow</h2>
+            <p class="flow-card-desc">
+              The customer enters Help Centre via Account, selects the damaged-item problem, connects the delivered order from recent purchases, and enters the queue.
+            </p>
+            <div class="flow-steps-pill-list">
+              <div class="flow-step-item"><span class="flow-step-num">1</span> Shared Home Screen (Signed In)</div>
+              <div class="flow-step-item"><span class="flow-step-num">2</span> Account &rarr; Lower Help Centre Entry</div>
+              <div class="flow-step-item"><span class="flow-step-num">3</span> Help Centre &rarr; Contact Us</div>
+              <div class="flow-step-item"><span class="flow-step-num">4</span> Guided Category &rarr; "Damaged item"</div>
+              <div class="flow-step-item"><span class="flow-step-num">5</span> Select Relevant Order &rarr; Continue</div>
+              <div class="flow-step-item"><span class="flow-step-num">6</span> Order Connected Confirmation</div>
+              <div class="flow-step-item"><span class="flow-step-num">7</span> Joined Queue (Identical End Screen)</div>
+            </div>
+            <button type="button" class="flow-launch-btn" id="btnLaunchFlowB" style="background:#5B21B6">
+              Launch Flow B (Support-First) &rarr;
+            </button>
+          </div>
+
+        </div>
+
+        <div class="landing-footer-notes">
+          <span>Target Mobile Breakpoint: <strong>390px (iPhone 14/15)</strong></span>
+          <span>Target Item: <strong>Dream On Me Synergy MOD 4-in-1 Crib (#2000112233445)</strong></span>
+          <span>End Screen: <strong>Live Agent Queue Screen</strong></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------------------------
+         2. MOBILE DEVICE SIMULATOR CONTAINER
+         ------------------------------------------------------------------------ -->
+    <div class="simulator-wrapper" id="simulatorWrapper">
+      <div class="phone-frame" id="phoneFrame">
+        
+        <!-- iOS Status Bar -->
+        <div class="phone-status-bar" id="phoneStatusBar">
+          <span class="status-time">12:56</span>
+          <div class="status-notch-pill">
+            <div class="notch-camera-dot"></div>
+          </div>
+          <div class="status-icons">
+            <!-- Cellular bars -->
+            <svg width="15" height="11" viewBox="0 0 17 12"><path d="M1 10h2v2H1zm4-3h2v5H5zm4-3h2v8H9zm4-4h2v12h-2z"/></svg>
+            <!-- Wi-Fi -->
+            <svg width="15" height="11" viewBox="0 0 16 12"><path d="M8 2.5C4.9 2.5 2.1 3.8.2 6l1.4 1.4C3.1 5.8 5.4 4.7 8 4.7s4.9 1.1 6.4 2.7L15.8 6C13.9 3.8 11.1 2.5 8 2.5zm0 4c-1.9 0-3.6.8-4.8 2.1l1.4 1.4c.9-.9 2.1-1.5 3.4-1.5s2.5.6 3.4 1.5l1.4-1.4C11.6 7.3 9.9 6.5 8 6.5zm0 4a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"/></svg>
+            <!-- Battery -->
+            <svg width="22" height="11" viewBox="0 0 24 12"><rect x="1" y="1" width="19" height="10" rx="3" fill="none" stroke="#FFFFFF" stroke-width="1.5"/><rect x="3" y="3" width="15" height="6" rx="1.5" fill="#FFFFFF"/><path d="M22 4.5v3" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+
+        <!-- Phone Screen Viewport -->
+        <div class="phone-screen">
+          <div class="screen-viewport" id="screenViewport">
+
+            <!-- ================================================================
+                 SHARED HOME SCREEN (A0 & B0)
+                 ================================================================ -->
+            <section class="view-screen active" id="screen-home" aria-label="Walmart Home">
+              <!-- Walmart Blue Header -->
+              <div class="wm-header">
+                <div class="wm-header-top-row">
+                  <div class="wm-greeting" id="headerGreeting" role="button" tabindex="0">
+                    <svg class="wm-spark-icon" viewBox="0 0 64 64" fill="none">
+                      <rect x="28" y="2" width="8" height="19" rx="4" fill="#FFC220"/>
+                      <rect x="28" y="43" width="8" height="19" rx="4" fill="#FFC220"/>
+                      <rect x="44.5" y="11.5" width="8" height="19" rx="4" transform="rotate(60 48.5 21)" fill="#FFC220"/>
+                      <rect x="11.5" y="32.5" width="8" height="19" rx="4" transform="rotate(60 15.5 42)" fill="#FFC220"/>
+                      <rect x="44.5" y="33.5" width="8" height="19" rx="4" transform="rotate(120 48.5 43)" fill="#FFC220"/>
+                      <rect x="11.5" y="12.5" width="8" height="19" rx="4" transform="rotate(120 15.5 22)" fill="#FFC220"/>
+                    </svg>
+                    <span>Hi, Maryam</span>
+                  </div>
+                  <div class="wm-header-actions">
+                    <button type="button" class="wm-icon-btn" aria-label="Cart">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M1 1h4l2.68 12.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="wm-search-bar">
+                  <svg class="wm-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+                  <input type="text" class="wm-search-input" placeholder="Search Walmart" readonly aria-label="Search Walmart">
+                  <div class="wm-barcode-scan" title="Scan barcode">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="8" x2="7" y2="16"/><line x1="11" y1="8" x2="11" y2="16"/><line x1="15" y1="8" x2="15" y2="16"/></svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Location / Delivery Strip -->
+              <div class="wm-fulfillment-bar">
+                <div class="wm-fulfillment-left">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <span>How do you want your items? | <strong class="wm-postal-code">M9V 4Y5</strong></span>
+                </div>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+              </div>
+
+              <!-- Category Pills -->
+              <div class="wm-pills-scroll">
+                <button type="button" class="wm-pill active">Departments</button>
+                <button type="button" class="wm-pill">Flyer</button>
+                <button type="button" class="wm-pill">Grocery</button>
+                <button type="button" class="wm-pill">My Items</button>
+                <button type="button" class="wm-pill">Thanksgiving</button>
+              </div>
+
+              <!-- Home Content -->
+              <div class="home-content">
+                <!-- Fall Rollbacks Hero Card -->
+                <div class="hero-rollback-card" id="heroRollback">
+                  <div class="hero-rollback-img-box">
+                    <img src="assets/images/fall_banner.jpg" alt="Fall for Rollbacks & more" class="hero-rollback-img">
+                  </div>
+                  <div class="hero-rollback-info">
+                    <div>
+                      <h2 class="hero-rollback-title">Fall for Rollbacks & more</h2>
+                      <div class="hero-rollback-sub">Shop appliances, tech & home &rarr;</div>
+                    </div>
+                    <span class="rollback-badge-pill">Rollback $89</span>
+                  </div>
+                </div>
+
+                <!-- 2-Column Promo Cards -->
+                <div class="home-grid-cards">
+                  <!-- Food Card -->
+                  <div class="home-secondary-card">
+                    <div class="card-img-box">
+                      <img src="assets/images/groceries.jpg" alt="Save with Rollback & more">
+                    </div>
+                    <div class="card-content">
+                      <div class="card-title">Save with Rollback & more</div>
+                      <div class="card-action-link">Shop groceries</div>
+                    </div>
+                  </div>
+
+                  <!-- Pumpkin Card -->
+                  <div class="home-secondary-card">
+                    <div class="card-img-box">
+                      <img src="assets/images/pumpkin.jpg" alt="Pumpkin picks with Halloween charm">
+                    </div>
+                    <div class="card-content">
+                      <div class="card-title">Pumpkin picks with Halloween charm</div>
+                      <div class="card-action-link">Shop decor</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ================================================================
+                 FLOW A - SCREEN 1: ACCOUNT (A1)
+                 ================================================================ -->
+            <section class="view-screen" id="screen-account-a" aria-label="Account Screen">
+              <div class="wm-subpage-header">
+                <button type="button" class="wm-back-btn btn-nav-back" aria-label="Back">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <div class="wm-subpage-title-box">
+                  <h1 class="wm-subpage-title">Hi, Maryam</h1>
+                  <div class="wm-subpage-subtitle">Thanks for being a Walmart customer for 3 years</div>
+                </div>
+              </div>
+
+              <div class="account-screen-content">
+                <!-- Walmart+ Yellow Banner Card -->
+                <div class="wm-plus-banner">
+                  <div class="wm-plus-logo-row">
+                    <div class="wm-plus-brand">
+                      Walmart<span class="wm-plus-plus">+</span>
+                    </div>
+                    <svg width="24" height="24" viewBox="0 0 64 64" fill="none">
+                      <rect x="28" y="2" width="8" height="19" rx="4" fill="#041E42"/>
+                      <rect x="28" y="43" width="8" height="19" rx="4" fill="#041E42"/>
+                      <rect x="44.5" y="11.5" width="8" height="19" rx="4" transform="rotate(60 48.5 21)" fill="#041E42"/>
+                      <rect x="11.5" y="32.5" width="8" height="19" rx="4" transform="rotate(60 15.5 42)" fill="#041E42"/>
+                      <rect x="44.5" y="33.5" width="8" height="19" rx="4" transform="rotate(120 48.5 43)" fill="#041E42"/>
+                      <rect x="11.5" y="12.5" width="8" height="19" rx="4" transform="rotate(120 15.5 22)" fill="#041E42"/>
+                    </svg>
+                  </div>
+
+                  <div class="wm-plus-benefits-row">
+                    <div class="benefit-pill-item">
+                      <div class="benefit-circle-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                      </div>
+                      <span class="benefit-label">Free same-day delivery</span>
+                    </div>
+
+                    <div class="benefit-pill-item">
+                      <div class="benefit-circle-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                      </div>
+                      <span class="benefit-label">No fees on next-day shipping</span>
+                    </div>
+
+                    <div class="benefit-pill-item">
+                      <div class="benefit-circle-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                      </div>
+                      <span class="benefit-label">Video streaming with Crave</span>
+                    </div>
+                  </div>
+
+                  <div class="wm-plus-cta-row">
+                    <button type="button" class="btn-join-wm-plus">Join Walmart+</button>
+                    <span class="wm-plus-tc">T&Cs apply.</span>
+                  </div>
+                </div>
+
+                <!-- Primary Account Links -->
+                <div class="account-section-card">
+                  <!-- Orders Row (Primary Intended Action for Flow A) -->
+                  <div class="account-list-item" id="rowOrdersA" role="button" tabindex="0">
+                    <div class="account-item-left">
+                      <div class="account-item-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                      </div>
+                      <div class="account-item-text">
+                        <div class="account-item-title">Orders</div>
+                        <div class="account-item-sub">Track, return or buy again</div>
+                      </div>
+                    </div>
+                    <svg class="item-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <!-- Wallet Row -->
+                  <div class="account-list-item" id="rowWalletA" role="button" tabindex="0">
+                    <div class="account-item-left">
+                      <div class="account-item-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                      </div>
+                      <div class="account-item-text">
+                        <div class="account-item-title">Wallet</div>
+                        <div class="account-item-sub">Manage payment methods</div>
+                      </div>
+                    </div>
+                    <svg class="item-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+                </div>
+
+                <!-- Manage Account Section -->
+                <div class="account-section-card">
+                  <div class="account-section-header">Manage account</div>
+                  
+                  <div class="account-list-item">
+                    <div class="account-item-left">
+                      <div class="account-item-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                      </div>
+                      <div class="account-item-text">
+                        <div class="account-item-title">Personal info</div>
+                        <div class="account-item-sub">Contact information and password</div>
+                      </div>
+                    </div>
+                    <svg class="item-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <div class="account-list-item">
+                    <div class="account-item-left">
+                      <div class="account-item-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+                      </div>
+                      <div class="account-item-text">
+                        <div class="account-item-title">Addresses</div>
+                        <div class="account-item-sub">Manage saved addresses</div>
+                      </div>
+                    </div>
+                    <svg class="item-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <div class="account-list-item">
+                    <div class="account-item-left">
+                      <div class="account-item-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                      </div>
+                      <div class="account-item-text">
+                        <div class="account-item-title">Communications & privacy</div>
+                        <div class="account-item-sub">Email, texts and notifications</div>
+                      </div>
+                    </div>
+                    <svg class="item-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ================================================================
+                 FLOW A - SCREEN 2: PURCHASE HISTORY / MY ORDERS (A2)
+                 ================================================================ -->
+            <section class="view-screen" id="screen-orders-history" aria-label="Purchase History">
+              <div class="wm-subpage-header">
+                <button type="button" class="wm-back-btn btn-nav-back" aria-label="Back">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <div class="wm-subpage-title-box">
+                  <h1 class="wm-subpage-title">My orders</h1>
+                </div>
+                <button type="button" class="wm-icon-btn" aria-label="Barcode Search">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/></svg>
+                </button>
+              </div>
+
+              <!-- Search Bar -->
+              <div style="background:#0071DC;padding:0 14px 10px">
+                <div class="wm-search-bar" style="padding:6px 12px">
+                  <svg class="wm-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+                  <input type="text" class="wm-search-input" placeholder="Search your orders" style="font-size:13.5px">
+                </div>
+              </div>
+
+              <!-- Filter Pills -->
+              <div class="orders-filter-bar">
+                <button type="button" class="filter-tab-pill active">All 4</button>
+                <button type="button" class="filter-tab-pill">Last 3 months</button>
+                <button type="button" class="filter-tab-pill">In-store</button>
+              </div>
+
+              <!-- Orders List -->
+              <div class="orders-list-container">
+                <!-- TARGET ORDER: Crib (Primary Intended Action) -->
+                <div class="order-card" id="targetOrderCardA" role="button" tabindex="0">
+                  <div class="order-card-header">
+                    <span class="order-status-badge">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                      Delivered
+                    </span>
+                    <span class="order-date-meta">Oct 2, 2026</span>
+                  </div>
+                  <div class="order-card-body">
+                    <div class="order-thumb-box">
+                      <img src="assets/images/crib.jpg" alt="Dream On Me Synergy MOD 4-in-1 Convertible Crib">
+                    </div>
+                    <div class="order-card-details">
+                      <div class="order-prod-title">Dream On Me Synergy MOD 4-in-1 Convertible Crib - White</div>
+                      <div class="order-num-text">Order #2000112233445</div>
+                      <div class="order-price-text">$129.00</div>
+                    </div>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+                </div>
+
+                <!-- Secondary Order 2: Board Game -->
+                <div class="order-card" id="orderCardGame" role="button" tabindex="0">
+                  <div class="order-card-header">
+                    <span class="order-status-badge">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                      Delivered
+                    </span>
+                    <span class="order-date-meta">Sep 21, 2026</span>
+                  </div>
+                  <div class="order-card-body">
+                    <div class="order-thumb-box">
+                      <img src="assets/images/boardgame.jpg" alt="Hasbro Mystery Game">
+                    </div>
+                    <div class="order-card-details">
+                      <div class="order-prod-title">Hasbro Classic Family Board Game Collection</div>
+                      <div class="order-num-text">Order #2000112233001</div>
+                      <div class="order-price-text">$46.27</div>
+                    </div>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+                </div>
+
+                <!-- Secondary Order 3: Groceries -->
+                <div class="order-card" id="orderCardGroceries" role="button" tabindex="0">
+                  <div class="order-card-header">
+                    <span class="order-status-badge">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                      Delivered
+                    </span>
+                    <span class="order-date-meta">Sep 10, 2026</span>
+                  </div>
+                  <div class="order-card-body">
+                    <div class="order-thumb-box">
+                      <img src="assets/images/groceries.jpg" alt="Great Value Groceries">
+                    </div>
+                    <div class="order-card-details">
+                      <div class="order-prod-title">Great Value Breakfast Cereal & Organic Pantry Bundle</div>
+                      <div class="order-num-text">Order #2000112231940</div>
+                      <div class="order-price-text">$18.96</div>
+                    </div>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ================================================================
+                 FLOW A - SCREEN 3: ORDER DETAILS (A3)
+                 ================================================================ -->
+            <section class="view-screen" id="screen-order-details" aria-label="Order Details">
+              <div class="wm-subpage-header">
+                <button type="button" class="wm-back-btn btn-nav-back" aria-label="Back">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <div class="wm-subpage-title-box">
+                  <h1 class="wm-subpage-title">Order #2000112233445</h1>
+                  <div class="wm-subpage-subtitle">Delivered on Oct 2, 2026</div>
+                </div>
+              </div>
+
+              <div class="order-details-container">
+                <!-- Product Presentation Card -->
+                <div class="order-hero-card">
+                  <div class="order-hero-img-box">
+                    <img src="assets/images/crib.jpg" alt="Dream On Me Synergy MOD 4-in-1 Convertible Crib - White">
+                  </div>
+                  <h2 class="order-hero-title">Dream On Me Synergy MOD 4-in-1 Convertible Crib - White</h2>
+                  <div class="order-hero-price">$129.00</div>
+                  <div class="order-hero-actions-row">
+                    <button type="button" class="btn-buy-again" id="btnBuyAgain">Buy again</button>
+                    <button type="button" class="btn-add-cart-primary" id="btnAddToCart">Add to cart</button>
+                  </div>
+                </div>
+
+                <!-- Order Action Options List -->
+                <div class="order-options-card">
+                  <div class="order-action-row" id="btnTrackShipment" role="button" tabindex="0">
+                    <div class="order-action-left">
+                      <div class="order-action-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                      </div>
+                      <span class="order-action-title">Track shipment</span>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <div class="order-action-row" id="btnReturnReplace" role="button" tabindex="0">
+                    <div class="order-action-left">
+                      <div class="order-action-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                      </div>
+                      <span class="order-action-title">Return or replace item</span>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <!-- PRIMARY ACTION FOR FLOW A: Get help with this item -->
+                  <div class="order-action-row highlighted" id="btnGetHelpWithItem" role="button" tabindex="0">
+                    <div class="order-action-left">
+                      <div class="order-action-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                      </div>
+                      <span class="order-action-title">Get help with this item</span>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0071DC" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <div class="order-action-row" id="btnViewReceipt" role="button" tabindex="0">
+                    <div class="order-action-left">
+                      <div class="order-action-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                      </div>
+                      <span class="order-action-title">View receipt</span>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ================================================================
+                 FLOW A - SCREEN 4: GET HELP WITH THIS ORDER (A4)
+                 ================================================================ -->
+            <section class="view-screen" id="screen-help-with-order" aria-label="Help With This Order">
+              <div class="wm-subpage-header">
+                <button type="button" class="wm-back-btn btn-nav-back" aria-label="Back">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <div class="wm-subpage-title-box">
+                  <h1 class="wm-subpage-title">Get help with this order</h1>
+                  <div class="wm-subpage-subtitle">#2000112233445</div>
+                </div>
+              </div>
+
+              <div class="help-order-container">
+                <!-- Compact Product Summary Chip -->
+                <div class="compact-product-chip">
+                  <img src="assets/images/crib.jpg" alt="Crib" class="compact-chip-img">
+                  <div class="compact-chip-details">
+                    <div class="compact-chip-title">Dream On Me Synergy MOD 4-in-1 Convertible Crib - White</div>
+                    <div class="compact-chip-meta">$129.00</div>
+                  </div>
+                </div>
+
+                <h2 class="question-prompt-heading">What do you need help with?</h2>
+
+                <!-- Issue Options List -->
+                <div class="issue-options-list">
+                  <div class="issue-choice-option" role="button" tabindex="0">
+                    <div class="issue-radio-label">
+                      <div class="radio-circle"><div class="radio-dot-inner"></div></div>
+                      <span>I want to return this item</span>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <div class="issue-choice-option" role="button" tabindex="0">
+                    <div class="issue-radio-label">
+                      <div class="radio-circle"><div class="radio-dot-inner"></div></div>
+                      <span>Problem with delivery</span>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <!-- PRIMARY INTENDED CHOICE: Damaged item -->
+                  <div class="issue-choice-option selected" id="optionDamagedItemA" role="button" tabindex="0">
+                    <div class="issue-radio-label">
+                      <div class="radio-circle"><div class="radio-dot-inner"></div></div>
+                      <span><strong>I received a damaged item</strong></span>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0071DC" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <div class="issue-choice-option" role="button" tabindex="0">
+                    <div class="issue-radio-label">
+                      <div class="radio-circle"><div class="radio-dot-inner"></div></div>
+                      <span>Item is missing or incomplete</span>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <div class="issue-choice-option" role="button" tabindex="0">
+                    <div class="issue-radio-label">
+                      <div class="radio-circle"><div class="radio-dot-inner"></div></div>
+                      <span>I need more help</span>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ================================================================
+                 FLOW A - SCREEN 5: SUPPORT HANDOFF / CHAT WITH US (A5)
+                 (Addresses Research Issue 5: Information Continuity)
+                 ================================================================ -->
+            <section class="view-screen no-bottom-nav" id="screen-handoff-a" aria-label="Chat With Us Handoff">
+              <div class="wm-subpage-header">
+                <button type="button" class="wm-back-btn btn-nav-back" aria-label="Back">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <div class="wm-subpage-title-box">
+                  <h1 class="wm-subpage-title">Chat with us</h1>
+                  <div class="wm-subpage-subtitle">We're here to help</div>
+                </div>
+              </div>
+
+              <div class="handoff-container">
+                <!-- Context Travel Card (Automatic context passing) -->
+                <div class="context-travel-box">
+                  <div class="context-travel-header">We'll connect you with an agent about:</div>
+                  <div class="context-order-chip">
+                    <img src="assets/images/crib.jpg" alt="Crib" class="context-order-thumb">
+                    <div class="context-order-info">
+                      <div class="context-order-num">Order #2000112233445</div>
+                      <div class="context-prod-name">Dream On Me Synergy MOD 4-in-1 Convertible Crib - White</div>
+                      <div style="font-size:12px;font-weight:700;color:#2E2F32">$129.00</div>
+                      <span class="context-issue-badge">Issue: Damaged item</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Channel Options -->
+                <div class="channel-options-group">
+                  <!-- PRIMARY CHANNEL: Chat with live agent -->
+                  <div class="channel-card-btn primary-channel" id="btnChannelChatA" role="button" tabindex="0">
+                    <div class="channel-left">
+                      <div class="channel-circle-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                      </div>
+                      <div>
+                        <div class="channel-title">Chat</div>
+                        <div class="channel-sub">Get help from a live agent</div>
+                      </div>
+                    </div>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0071DC" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <!-- Call Channel -->
+                  <div class="channel-card-btn" id="btnChannelCallA" role="button" tabindex="0">
+                    <div class="channel-left">
+                      <div class="channel-circle-icon phone">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                      </div>
+                      <div>
+                        <div class="channel-title">Call us</div>
+                        <div class="channel-sub">Wait time: 5–10 min</div>
+                      </div>
+                    </div>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ================================================================
+                 FLOW B - SCREEN 1: LOWER ACCOUNT / HELP ENTRY (B1 & B2)
+                 ================================================================ -->
+            <section class="view-screen" id="screen-account-b" aria-label="Account Support Menu">
+              <div class="wm-subpage-header">
+                <button type="button" class="wm-back-btn btn-nav-back" aria-label="Back">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <div class="wm-subpage-title-box">
+                  <h1 class="wm-subpage-title">Account</h1>
+                </div>
+              </div>
+
+              <div class="account-screen-content">
+                <div class="account-section-card">
+                  <div class="account-list-item">
+                    <div class="account-item-left">
+                      <div class="account-item-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg>
+                      </div>
+                      <div class="account-item-text">
+                        <div class="account-item-title">Walmart+</div>
+                      </div>
+                    </div>
+                    <svg class="item-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <div class="account-list-item">
+                    <div class="account-item-left">
+                      <div class="account-item-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                      </div>
+                      <div class="account-item-text">
+                        <div class="account-item-title">Purchase history</div>
+                      </div>
+                    </div>
+                    <svg class="item-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <div class="account-list-item">
+                    <div class="account-item-left">
+                      <div class="account-item-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                      </div>
+                      <div class="account-item-text">
+                        <div class="account-item-title">Sustainability</div>
+                      </div>
+                    </div>
+                    <svg class="item-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <!-- PRIMARY INTENDED ACTION FOR FLOW B: HELP CENTRE -->
+                  <div class="account-list-item" id="rowHelpCentreB" role="button" tabindex="0" style="background:#F0F6FF;border-left:3px solid #0071DC">
+                    <div class="account-item-left">
+                      <div class="account-item-icon" style="background:#0071DC;color:#fff;border-radius:50%;width:28px;height:28px">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                      </div>
+                      <div class="account-item-text">
+                        <div class="account-item-title" style="color:#0071DC">Help Centre</div>
+                        <div class="account-item-sub">Get help with orders, returns, and more</div>
+                      </div>
+                    </div>
+                    <svg class="item-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0071DC" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <div class="account-list-item">
+                    <div class="account-item-left">
+                      <div class="account-item-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                      </div>
+                      <div class="account-item-text">
+                        <div class="account-item-title">Settings</div>
+                      </div>
+                    </div>
+                    <svg class="item-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+                </div>
+
+                <div class="account-signout-link">Sign out</div>
+              </div>
+            </section>
+
+            <!-- ================================================================
+                 FLOW B - SCREEN 2: HELP CENTRE (B3)
+                 ================================================================ -->
+            <section class="view-screen" id="screen-help-centre" aria-label="Walmart Help Centre">
+              <div class="wm-subpage-header">
+                <button type="button" class="wm-back-btn btn-nav-back" aria-label="Back">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <div class="wm-subpage-title-box">
+                  <h1 class="wm-subpage-title">Help Centre</h1>
+                </div>
+              </div>
+
+              <div class="help-centre-container">
+                <!-- Search Help Topics -->
+                <div class="help-search-box">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+                  <input type="text" class="help-search-input" placeholder="Search help topics" aria-label="Search help topics">
+                </div>
+
+                <!-- Popular Topics List -->
+                <div class="popular-topics-card">
+                  <div class="topics-header">Popular topics</div>
+
+                  <div class="topic-row" role="button" tabindex="0">
+                    <div class="topic-row-left">
+                      <div class="topic-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                      </div>
+                      <span>Track an order</span>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <div class="topic-row" role="button" tabindex="0">
+                    <div class="topic-row-left">
+                      <div class="topic-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                      </div>
+                      <span>Returns & refunds</span>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <div class="topic-row" role="button" tabindex="0">
+                    <div class="topic-row-left">
+                      <div class="topic-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                      </div>
+                      <span>Account & payments</span>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <div class="topic-row" role="button" tabindex="0">
+                    <div class="topic-row-left">
+                      <div class="topic-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg>
+                      </div>
+                      <span>Walmart+</span>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <div class="topic-row" role="button" tabindex="0">
+                    <div class="topic-row-left">
+                      <div class="topic-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                      </div>
+                      <span>Shipping & delivery</span>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <div class="topic-row" role="button" tabindex="0">
+                    <div class="topic-row-left">
+                      <div class="topic-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                      </div>
+                      <span>In-store shopping</span>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <div class="topic-row" role="button" tabindex="0">
+                    <div class="topic-row-left">
+                      <div class="topic-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                      </div>
+                      <span>Product information</span>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+                </div>
+
+                <!-- PROMINENT CONTACT US CARD AT BOTTOM (Addresses Research Issue 1) -->
+                <div class="help-contact-card" id="btnHelpContactUs" role="button" tabindex="0">
+                  <div class="contact-card-left">
+                    <div class="contact-circle-blue">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    </div>
+                    <div>
+                      <div style="font-size:15px;font-weight:800;color:#041E42">Contact us</div>
+                      <div style="font-size:12.5px;color:#55585B">Chat, call or email</div>
+                    </div>
+                  </div>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0071DC" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                </div>
+              </div>
+            </section>
+
+            <!-- ================================================================
+                 FLOW B - SCREEN 3: CHOOSE ISSUE (B4)
+                 ================================================================ -->
+            <section class="view-screen" id="screen-choose-issue" aria-label="What Do You Need Help With">
+              <div class="wm-subpage-header">
+                <button type="button" class="wm-back-btn btn-nav-back" aria-label="Back">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <div class="wm-subpage-title-box">
+                  <h1 class="wm-subpage-title">What do you need help with?</h1>
+                </div>
+              </div>
+
+              <div class="choose-issue-container">
+                <div class="issue-cards-grid">
+                  <!-- PRIMARY TARGET CHOICE: Damaged item -->
+                  <div class="issue-nav-card target-damaged" id="cardIssueDamaged" role="button" tabindex="0">
+                    <div class="issue-card-left">
+                      <div class="issue-icon-box icon-box-blue">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+                      </div>
+                      <div>
+                        <div class="issue-title-text" style="color:#0071DC">Damaged item</div>
+                        <div class="issue-subtitle-text">Item arrived broken</div>
+                      </div>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0071DC" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <!-- Missing item -->
+                  <div class="issue-nav-card" role="button" tabindex="0">
+                    <div class="issue-card-left">
+                      <div class="issue-icon-box icon-box-coral">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><circle cx="12" cy="12" r="3"/></svg>
+                      </div>
+                      <div>
+                        <div class="issue-title-text">Missing item</div>
+                        <div class="issue-subtitle-text">Part or item is missing</div>
+                      </div>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <!-- Wrong item -->
+                  <div class="issue-nav-card" role="button" tabindex="0">
+                    <div class="issue-card-left">
+                      <div class="issue-icon-box icon-box-teal">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+                      </div>
+                      <div>
+                        <div class="issue-title-text">Wrong item</div>
+                        <div class="issue-subtitle-text">Different item received</div>
+                      </div>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <!-- Return or refund -->
+                  <div class="issue-nav-card" role="button" tabindex="0">
+                    <div class="issue-card-left">
+                      <div class="issue-icon-box icon-box-purple">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                      </div>
+                      <div>
+                        <div class="issue-title-text">Return or refund</div>
+                        <div class="issue-subtitle-text">Start a return or check refund</div>
+                      </div>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <!-- Track an order -->
+                  <div class="issue-nav-card" role="button" tabindex="0">
+                    <div class="issue-card-left">
+                      <div class="issue-icon-box icon-box-amber">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                      </div>
+                      <div>
+                        <div class="issue-title-text">Track an order</div>
+                        <div class="issue-subtitle-text">Find delivery information</div>
+                      </div>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <!-- Something else -->
+                  <div class="issue-nav-card" role="button" tabindex="0">
+                    <div class="issue-card-left">
+                      <div class="issue-icon-box icon-box-green">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+                      </div>
+                      <div>
+                        <div class="issue-title-text">Something else</div>
+                        <div class="issue-subtitle-text">Browse more support topics</div>
+                      </div>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ================================================================
+                 FLOW B - SCREEN 4: CHOOSE WHICH ORDER (B5)
+                 ================================================================ -->
+            <section class="view-screen" id="screen-choose-order" aria-label="Which Order Is This About">
+              <div class="wm-subpage-header">
+                <button type="button" class="wm-back-btn btn-nav-back" aria-label="Back">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <div class="wm-subpage-title-box">
+                  <h1 class="wm-subpage-title">Which order is this about?</h1>
+                </div>
+              </div>
+
+              <div class="choose-order-container">
+                <div class="order-selection-list">
+                  <!-- TARGET ORDER: Crib (Selected by default) -->
+                  <div class="order-select-card selected" id="orderSelectCrib" role="button" tabindex="0">
+                    <input type="radio" name="orderGroup" checked style="accent-color:#0071DC;transform:scale(1.2)">
+                    <img src="assets/images/crib.jpg" alt="Crib" class="order-select-thumb">
+                    <div class="order-select-info">
+                      <div class="order-select-title">Dream On Me Synergy MOD Crib</div>
+                      <div class="order-select-meta">Delivered Oct 2, 2026 &bull; #2000112233445</div>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0071DC" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <!-- Order 2: Groceries -->
+                  <div class="order-select-card" id="orderSelectGroceries" role="button" tabindex="0">
+                    <input type="radio" name="orderGroup" style="accent-color:#0071DC;transform:scale(1.2)">
+                    <img src="assets/images/groceries.jpg" alt="Groceries" class="order-select-thumb">
+                    <div class="order-select-info">
+                      <div class="order-select-title">Great Value groceries</div>
+                      <div class="order-select-meta">Delivered Oct 2, 2026 &bull; #20001122341002</div>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+
+                  <!-- Order 3: Diapers -->
+                  <div class="order-select-card" id="orderSelectDiapers" role="button" tabindex="0">
+                    <input type="radio" name="orderGroup" style="accent-color:#0071DC;transform:scale(1.2)">
+                    <img src="assets/images/diapers.jpg" alt="Diapers" class="order-select-thumb">
+                    <div class="order-select-info">
+                      <div class="order-select-title">Huggies diapers</div>
+                      <div class="order-select-meta">Delivered Sep 30, 2026 &bull; #20001122339871</div>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#74767B" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                  </div>
+                </div>
+
+                <button type="button" class="show-more-orders-btn">Show more orders</button>
+
+                <button type="button" class="btn-continue-primary" id="btnContinueB">Continue</button>
+              </div>
+            </section>
+
+            <!-- ================================================================
+                 FLOW B - SCREEN 5: ORDER CONNECTED (B6)
+                 ================================================================ -->
+            <section class="view-screen no-bottom-nav" id="screen-order-connected" aria-label="Order Connected Confirmation">
+              <div class="wm-subpage-header">
+                <button type="button" class="wm-back-btn btn-nav-back" aria-label="Back">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <div class="wm-subpage-title-box">
+                  <h1 class="wm-subpage-title">Support Request</h1>
+                </div>
+              </div>
+
+              <div class="order-connected-container">
+                <!-- Success Status Card -->
+                <div class="connected-success-card">
+                  <div class="connected-check-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                  </div>
+                  <h2 class="connected-title">Your order is connected</h2>
+                  <p class="connected-sub">
+                    We've attached your order details and issue type to the support request.
+                  </p>
+                </div>
+
+                <!-- Attached Order Details Card -->
+                <div class="connected-summary-card">
+                  <div class="connected-prod-row">
+                    <img src="assets/images/crib.jpg" alt="Crib" class="connected-thumb">
+                    <div>
+                      <div style="font-size:14px;font-weight:800;color:#2E2F32">Dream On Me Synergy MOD Crib</div>
+                      <div style="font-size:12px;color:#74767B;margin-top:2px">#2000112233445</div>
+                      <div style="font-size:12px;color:#2A8703;font-weight:700;margin-top:2px">Delivered Oct 2, 2026</div>
+                    </div>
+                  </div>
+
+                  <div class="connected-issue-row">
+                    <div>
+                      <div class="issue-tag-label">Issue</div>
+                      <div class="issue-tag-val">Damaged item</div>
+                    </div>
+                    <button type="button" class="edit-issue-link" id="editIssueLinkB" style="background:none;border:none">Edit</button>
+                  </div>
+                </div>
+
+                <!-- Primary CTA: Chat with an agent -->
+                <button type="button" class="btn-chat-live-agent" id="btnChatWithAgentB">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                  Chat with an agent
+                </button>
+              </div>
+            </section>
+
+            <!-- ================================================================
+                 SHARED END SCREEN: JOIN QUEUE (A6 & B7)
+                 (Addresses Research Issue 3: No Broken Countdown,
+                  Addresses Research Issue 4: Perfect Viewport Fit,
+                  Addresses Research Issue 5: Seamless Attached Context)
+                 ================================================================ -->
+            <section class="view-screen no-bottom-nav" id="screen-queue" aria-label="Live Agent Queue">
+              <div class="wm-subpage-header wm-subpage-header-white">
+                <button type="button" class="wm-back-btn" id="btnCloseQueue" aria-label="Close Queue">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+                <div class="wm-subpage-title-box">
+                  <h1 class="wm-subpage-title" style="font-size:16px;color:#2E2F32">Walmart Customer Care</h1>
+                </div>
+              </div>
+
+              <div class="queue-screen-container">
+                <!-- Dual Chat Illustration -->
+                <div class="queue-illustration-box">
+                  <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    <circle cx="9" cy="10" r="1" fill="currentColor"/>
+                    <circle cx="12" cy="10" r="1" fill="currentColor"/>
+                    <circle cx="15" cy="10" r="1" fill="currentColor"/>
+                  </svg>
+                </div>
+
+                <h2 class="queue-main-title">You're in line to chat with an agent</h2>
+
+                <!-- Clear Wait Metrics Card (Addresses Research Issue 3) -->
+                <div class="queue-wait-card">
+                  <div class="queue-wait-label">Your estimated wait time</div>
+                  <div class="queue-wait-digits">8 minutes</div>
+                  <p class="queue-wait-desc">
+                    We'll notify you here when it's your turn. You can keep using the app while you wait.
+                  </p>
+                </div>
+
+                <!-- Queue Status Steps (From Design Board) -->
+                <div class="queue-steps-list">
+                  <div class="queue-step-row">
+                    <div class="step-circle active-step">1</div>
+                    <div class="step-text">Your place in line: <strong>3</strong></div>
+                  </div>
+
+                  <div class="queue-step-row">
+                    <div class="step-circle pending-step">2</div>
+                    <div class="step-text">We'll connect you shortly</div>
+                  </div>
+
+                  <div class="queue-step-row">
+                    <div class="step-circle pending-step">3</div>
+                    <div class="step-text">8 min estimated wait</div>
+                  </div>
+                </div>
+
+                <!-- Attached Context Info (Addresses Research Issue 5) -->
+                <div class="queue-context-banner">
+                  <div class="context-banner-title">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    Ready for Agent &bull; Context Attached
+                  </div>
+                  <div class="context-banner-body">
+                    Order <strong class="context-banner-item">#2000112233445</strong> &bull; <strong class="context-banner-item">Dream On Me Synergy MOD Crib</strong>
+                  </div>
+                  <div class="context-banner-body" style="color:#0071DC">
+                    Reported issue: <strong class="context-banner-item">Damaged item</strong> (No re-typing needed)
+                  </div>
+                </div>
+
+                <!-- Leave Queue Button -->
+                <button type="button" class="btn-leave-queue" id="btnLeaveQueue">Leave queue</button>
+              </div>
+            </section>
+
+          </div>
+
+          <!-- ================================================================
+               SHARED BOTTOM NAVIGATION (5 TABS)
+               ================================================================ -->
+          <nav class="wm-bottom-nav" id="mainBottomNav" aria-label="Walmart Main Navigation">
+            <button type="button" class="nav-tab active" id="navTabShop">
+              <svg viewBox="0 0 24 24" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              <span>Shop</span>
+            </button>
+
+            <button type="button" class="nav-tab" id="navTabItems">
+              <svg viewBox="0 0 24 24" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <span>My Items</span>
+            </button>
+
+            <button type="button" class="nav-tab" id="navTabSparky">
+              <svg viewBox="0 0 24 24" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Sparky</span>
+            </button>
+
+            <button type="button" class="nav-tab" id="navTabSavings">
+              <svg viewBox="0 0 24 24" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><circle cx="7" cy="7" r="1.5"/></svg>
+              <span>Savings</span>
+            </button>
+
+            <button type="button" class="nav-tab" id="navTabAccount">
+              <svg viewBox="0 0 24 24" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <span>Account</span>
+              <span class="nav-badge-dot">1</span>
+            </button>
+          </nav>
+
+          <!-- Toast Notification -->
+          <div class="wm-toast" id="wmToast" role="status" aria-live="polite">
+            <span class="toast-icon"></span>
+            <span class="toast-msg"></span>
+          </div>
+
+          <!-- Believable Bottom Sheet Drawer for Secondary Actions -->
+          <div class="bottom-sheet-backdrop" id="bottomSheetBackdrop">
+            <div class="bottom-sheet">
+              <div class="sheet-handle"></div>
+              <h3 class="sheet-title" id="sheetTitle">Information</h3>
+              <div class="sheet-body" id="sheetBody"></div>
+              <button type="button" class="sheet-btn-close" id="btnCloseSheet">Done</button>
+            </div>
+          </div>
+
+          <!-- iOS Home Indicator Pill -->
+          <div class="phone-home-indicator"></div>
+
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ==========================================================================
+       FACILITATOR TASK BRIEFING MODAL (OUTSIDE PHONE VIEWPORT)
+       ========================================================================== -->
+  <aside class="scenario-modal-overlay" id="scenarioModal" aria-hidden="true" role="dialog" aria-labelledby="scenarioModalTitle">
+    <div class="scenario-modal-content">
+      <h2 class="scenario-modal-title" id="scenarioModalTitle">Usability Test Briefing</h2>
+      
+      <div class="scenario-quote-card">
+        “You received a damaged item from a recent Walmart order. Starting from the signed-in Walmart home screen, find a way to get help and join the queue for a live customer-service agent.”
+      </div>
+
+      <p style="font-size:13.5px;font-weight:700;color:#041E42;margin-bottom:8px">A/B Testing Comparison Variables:</p>
+      <ul class="scenario-notes-list">
+        <li><strong>Version A (Order-First):</strong> User enters Account &rarr; Purchase History &rarr; Selects Delivered Crib &rarr; "Get help with this item" &rarr; Damaged item &rarr; Support queue.</li>
+        <li><strong>Version B (Support-First):</strong> User enters Account &rarr; Help Centre &rarr; Contact us &rarr; Damaged item issue &rarr; Links crib order &rarr; Support queue.</li>
+        <li><strong>Key Usability Improvements Addressed:</strong>
+          <br>&bull; Human support discoverability without buried policy reading (Issue 1)
+          <br>&bull; Reduced branching & unnecessary decision taps (Issue 2)
+          <br>&bull; No misleading 00:00 countdown clock; realistic position & wait (Issue 3)
+          <br>&bull; 390px viewport integrity without horizontal scrolling (Issue 4)
+          <br>&bull; Automatic order & issue context continuity (Issue 5)
+        </li>
+      </ul>
+
+      <button type="button" class="btn-dismiss-scenario" id="btnCloseScenario">Close Briefing</button>
+    </div>
+  </aside>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+</body>
+</html>
